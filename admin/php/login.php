@@ -1,11 +1,13 @@
 <?php
-require_once("../../assets/conn.php");
+session_start();
+require_once("../include/conn.php");
 if (!$_POST) {
     require_once("../html/login.html");
 } else if (isset($_POST["logeMail"]) && isset($_POST["logpass"])) {
     $sql = "select * from user where eMail='{$_POST['logeMail']}' and pass='{$_POST['logpass']}';";
     $result = $mysqli->query($sql);
-    if ($result) {
+    // $row = $result->fetch_assoc();
+    if ($result->num_rows == 1) {
         header("location:../html/profile.html");
         echo ("loggd in");
     } else {
